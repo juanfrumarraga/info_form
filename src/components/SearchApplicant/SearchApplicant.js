@@ -45,7 +45,7 @@ class SearchApplicant extends React.Component{
               <div className="input-group-prepend">
                 <label htmlFor="inlineFormInputGroupUsername" className="input-group-text">Email</label>
               </div>
-              <input  type="email" className="form-control" id="inlineFormInputGroupUsername" placeholder="juan@cabify.com" onChange={this.handleChange}/>
+              <input  type="email" className="form-control form-control-reset" id="inlineFormInputGroupUsername" placeholder="juan@cabify.com" onChange={this.handleChange}/>
             </div>
           </div>
           <div className="col-auto my-1">
