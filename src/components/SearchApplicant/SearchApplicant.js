@@ -46,10 +46,10 @@ class SearchApplicant extends React.Component{
                 <label htmlFor="inlineFormInputGroupUsername" className="input-group-text">Email</label>
               </div>
               <input  type="email" className="form-control form-control-reset" id="inlineFormInputGroupUsername" placeholder="juan@cabify.com" onChange={this.handleChange}/>
+              <div className="input-group-append">
+                <button type="button" className="btn btn-main" onClick={this.handleSubmit}>Submit</button>
+              </div>
             </div>
-          </div>
-          <div className="col-auto my-1">
-            <button type="button" className="btn btn-main" onClick={this.handleSubmit}>Submit</button>
           </div>
         </div>
         <br/>

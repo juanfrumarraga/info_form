@@ -8,11 +8,15 @@
   background-color: #7147f0;
 }
 
+.form-control.form-control-reset:focus {
+  box-shadow: none;
+  border-color: #885df4;
+}
+
 .form-group.form-group-last {
   margin-bottom: 3rem;
 }
 
-.form-control.form-control-reset:focus {
-  border-color: #ced4da;
-  box-shadow: none;
+.input-group-text {
+  min-width: 108px;
 }
