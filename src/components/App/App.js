@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import Driver from '../Driver/Driver';
+import Header from '../Header/Header';
 import Fountain from '../../Util/endpoint';
 import SearchApplicant from '../SearchApplicant/SearchApplicant';
 
@@ -33,6 +34,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <Header />
         {/*}<div className='container' style={{background:'rgb(134, 91, 244)', marginBottom:20}}>
             <img src={Logo} alt='logo' style={{height:150, align:'center'}}/>
         </div>*/}

@@ -1,0 +1,10 @@
+.header {
+  padding: 1.6rem 0;
+}
+
+.logo svg {
+  height: 32px;
+  width: auto;
+  fill: #885df4;
+}
+
