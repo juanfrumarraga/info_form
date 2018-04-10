@@ -55,7 +55,7 @@ class Driver extends React.Component {
               <div className="input-group-prepend">
                 <label htmlFor="phone" className="input-group-text">Phone</label>
               </div>
-              <input id="phone" type="text" className="form-control form-control-reset" value={this.props.applicant.phone} />
+              <input id="phone" type="phone" className="form-control form-control-reset" value={this.props.applicant.phone} />
             </div>
             <div className="form-group form-group-last">
               <label htmlFor="sel1">Select Stage:</label>
