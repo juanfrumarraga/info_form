@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import Driver from '../Driver/Driver';
+import Vehicle from '../Vehicle/Vehicle';
+import Company from '../Company/Company';
 import Header from '../Header/Header';
 import Fountain from '../../Util/endpoint';
 import SearchApplicant from '../SearchApplicant/SearchApplicant';
@@ -10,24 +12,31 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      company_name:'',
-      data:{}
-    }
+      driver:{},
+      vehicle:{},
+      company:{}
+      }
     this.getApplicant=this.getApplicant.bind(this);
+    let rest='';
   }
+
+
 
   getApplicant(email){
     console.log(email);
-    let applicant = Fountain.search(email)
+    let applicant = Fountain.searchv1(email)
     console.log(applicant);
-    this.setState({data:applicant})
+    this.setState({driver:applicant[0], vehicle:applicant[1], company:applicant[2]}, function(){this.searchInfo()})
 
   }
 
 
   searchInfo(){
-    if (this.state.data.first_name) {
-        return (<div className='container'><Driver applicant={this.state.data} /></div>)
+    console.log(this.state.driver.first_name);
+    if (this.state.driver.first_name) {
+      this.rest = (<div>
+
+      </div>)
     }
   }
 
@@ -39,7 +48,9 @@ class App extends Component {
             <img src={Logo} alt='logo' style={{height:150, align:'center'}}/>
         </div>*/}
         <SearchApplicant getApplicant={this.getApplicant}/>
-        {this.searchInfo()}
+        <Driver driver={this.state.driver} />
+        <Vehicle vehicle={this.state.vehicle} />
+        <Company company={this.state.company} />
         {/*}<br/>
         <br/>
         <Driver applicant={applicant} changeApplicant={this.changeApplicant} />
