@@ -134,7 +134,8 @@ const Fountain = {
       company_bank_account_type: applicant.data.company_bank_account_type,
       company_logistics_rep_id: applicant.data.company_logistics_rep_id
     }
-        return [driver, vehicle, company]
+
+    return applicant
 
     }
 
