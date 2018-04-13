@@ -117,7 +117,10 @@ const schema= {
 }
 
 
-const properties = Object.keys(schema.properties.driver_info.properties)
+const properties_driver_info = Object.keys(schema.properties.driver_info.properties)
+const properties_company_info = Object.keys(schema.properties.company_info.properties)
+const properties_vehicle_info = Object.keys(schema.properties.vehicle_info.properties)
+const properties_payment_info = Object.keys(schema.properties.payment_info.properties)
 
 
 class App extends Component {
@@ -133,7 +136,10 @@ class App extends Component {
   }
 
   formData(){
-    console.log(properties);
+    console.log(properties_driver_info);
+    console.log(properties_company_info);
+    console.log(properties_vehicle_info);
+    console.log(properties_payment_info);
     return{
     vehicle_info:this.state.applicant,
     company_info:this.state.applicant,
