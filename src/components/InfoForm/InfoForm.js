@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-class Test extends React.Component{
+class InfoForm extends React.Component{
   constructor(props){
     super(props)
     this.state={}
@@ -19,16 +19,21 @@ class Test extends React.Component{
         title: 'Driver info',
         type: 'object',
         properties:{
-          first_name: {type:'string', title:'Name', default:'hijo puta'},
-          last_name : {type:'string', title: 'Surname'},
-          phone_number:{type:'number', title:'Phone number'},
+          name: {type:'string', title:'Name', default:'hijo puta'},
+          select_example: {
+            type:'string',
+            title:'Select Example',
+            "enum": this.props.selectTest.map(option=>option)
+          },
+          surname : {type:'string', title: 'Surname'},
+          mobile_num:{type:'number', title:'Phone number'},
           email: {type:'string', title: 'Email', format:'email'},
           national_id_number : {type:'string', title:'ID number'},
           date_of_birth : {type:'string', title:'Date of Birth', format:'date'},
           driving_license_number : {type:'string', title: 'Driving license number'},
           driving_license_expiry_date : {type:'string', title:'Driving license expiry date', format:'date'},
           driving_license_upload : {type:'string', title:'Driving license attachment', format:'data-url'},
-          driver_gender: {type:'array', title:'Gender', items:{type:'string', enum:['Male', 'Female']}, uniqueItems:true},
+          driver_gender: {type:'array', title:'Gender', items:{type:'boolean', enum:['Male', 'Female']}, uniqueItems:true},
           driver_fleet_role : {type:'string', title:'Fleet access'},
           driver_reserve_class : {type:'string', title:'Reserve class'},
           criminal_records_date : {type:'string', title:' Criminal records date'},
@@ -94,7 +99,7 @@ class Test extends React.Component{
       },
 
 
-      payment_info : {
+      bank_account_info : {
         title: 'Payment Info',
         type: 'object',
         properties:{
@@ -115,23 +120,122 @@ class Test extends React.Component{
 
         }
       }
-
-
-
     }
-  };}
+  };
+}
 
-  uiSchema(){return {
-    'Driver Info':{
-      driver_gender: {items:{'ui:widget' : 'select'}}
+
+
+
+
+
+
+
+/*{
+  "title": "Widgets",
+  "type": "object",
+  "properties": {
+    "stringFormats": {
+      "type": "object",
+      "title": "String formats",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "boolean": {
+      "type": "object",
+      "title": "Boolean field",
+      "properties": {
+        "default": {
+          "type": "boolean",
+          "title": "checkbox (default)",
+          "description": "This is the checkbox-description"
+        },
+        "radio": {
+          "type": "boolean",
+          "title": "radio buttons",
+          "description": "This is the radio-description"
+        },
+        "select": {
+          "type": "boolean",
+          "title": "select box",
+          "description": "This is the select-description"
+        }
+      }
+    },
+    "string": {
+      "type": "object",
+      "title": "String field",
+      "properties": {
+        "default": {
+          "type": "string",
+          "title": "text input (default)"
+        },
+        "textarea": {
+          "type": "string",
+          "title": "textarea"
+        },
+        "color": {
+          "type": "string",
+          "title": "color picker",
+          "default": "#151ce6"
+        }
+      }
+    },
+    "secret": {
+      "type": "string",
+      "default": "I'm a hidden string."
+    },
+    "disabled": {
+      "type": "string",
+      "title": "A disabled field",
+      "default": "I am disabled."
+    },
+    "readonly": {
+      "type": "string",
+      "title": "A readonly field",
+      "default": "I am read-only."
+    },
+    "widgetOptions": {
+      "title": "Custom widget with options",
+      "type": "string",
+      "default": "I am yellow"
+    },
+    "selectWidgetOptions": {
+      "title": "Custom select widget with options",
+      "type": "string",
+      "enum": [
+        "foo",
+        "bar"
+      ],
+      "enumNames": [
+        "Foo",
+        "Bar"
+      ]
     }
-  };}
+  }
+}*/
 
 
-  formData(){return {
-    driver_info:{pedro: 'Juan', last_name:"en serio?"}
 
-  }}
+
+
+
+
+
+
+
+
+  uiSchema(){return {}}
+
+
 
   log = (type) => console.log.bind(console, type);
 
@@ -145,11 +249,19 @@ class Test extends React.Component{
           onSubmit={this.log("submitted")}
           onError={this.log("errors")}
           uiSchema={this.uiSchema()}
-          formData={this.props.cosa}/>
+          formData={this.props.formData}/>
+          <div className='container row'>
+            <div className='col-md-3 offset-md-3'>
+              <button type="submit" className='btn btn-warning' onSubmit={this.log('submitted')}>Save</button>
+            </div>
+            <div className='col-md-3 offset-md-3'>
+              <button type="button" className='btn btn-danger'>Reject</button>
+            </div>
+          </div>
       </div>
         )
 
 }
 }
 
-export default Test
+export default InfoForm
