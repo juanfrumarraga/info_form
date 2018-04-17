@@ -244,20 +244,30 @@ class InfoForm extends React.Component{
   render(){
 
     return (
-    <div className='Test container'>
-    <Form schema={this.schema()}
-          onSubmit={this.log("submitted")}
-          onError={this.log("errors")}
-          uiSchema={this.uiSchema()}
-          formData={this.props.formData}/>
-          <div className='container row'>
-            <div className='col-md-3 offset-md-3'>
-              <button type="submit" className='btn btn-warning' onSubmit={this.log('submitted')}>Save</button>
-            </div>
-            <div className='col-md-3 offset-md-3'>
-              <button type="button" className='btn btn-danger'>Reject</button>
-            </div>
+      <div className='Test container'>
+      <Form schema={this.schema()}
+            onSubmit={this.log("submitted")}
+            onError={this.log("errors")}
+            uiSchema={this.uiSchema()}
+            formData={this.props.formData}>
+        <div className="container">
+          <div className="row">
+            <button type="submit">Save</button>
+            <button type="button">Cancel</button>
           </div>
+        </div>
+      </Form>
+    <div className='Test container'>
+      {/*<Form schema={this.schema()}
+            onSubmit={this.log("submitted")}
+            onError={this.log("errors")}
+            uiSchema={this.uiSchema()}
+            formData={this.props.formData}/>
+            <div>
+              <button type="submit">Save</button>
+              <button type="button">Cancel</button>
+          </div>*/}
+        </div>
       </div>
         )
 
