@@ -253,10 +253,10 @@ class InfoForm extends React.Component{
           <div className="container">
             <div className="row">
               <div className='col-md-3 offset-md-3'>
-                <button type="submit">Save</button>
+                <button type="submit" className="btn btn-primary">Save</button>
               </div>
               <div className='col-md-3 offset-md-3'>
-                <button type="button">Cancel</button>
+                <button type="button" className="btn btn-danger">Cancel</button>
               </div>
             </div>
           </div>
