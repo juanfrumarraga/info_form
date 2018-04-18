@@ -72,20 +72,90 @@ const Admin = {
 
   getOptionBanks(){
     return {
-      "vehicle_types": [{'type1':'342343243'}, {type2:'2324234'}],
-      "vehicle_models": {
-          "e2ad5daabc5131256f6f0eb3521dc2f3": "Make1 Model1"
-      },
-      "tariffs": {
-          "e2ad5daabc5131256f6f0eb3521dc804": "tariff1"
-      },
-      "products": {
-          "e2ad5daabc5131256f6f0eb3521df6fa": "Executive",
-          "e2ad5daabc5131256f6f0eb3521df086": "Lite Car"
-      },
-      "bank_options": {
+      vehicle_types: [
+          ["Make1 Model1", "e2ad5daabc5131256f6f0eb3521dc2f3"],
+          ["Make1 afasfaModel1", "e2ad5daabc5131256f6f0eb3fasfasfasf521dc2f3"]],
+      vehicle_models: [
+          ['Audi A4', '65465465asdgvadfg4'],
+          ['VW X6', '654654653treg4'],
+          ['Volvo XC70', '65465465fas4'],
+          ['Mercedes A', '654654654fasd'],
+          ['Seat Pasada', '6546546gfad54asdfas'],
+          ['Audi Coca Cola', '654654654'],
+      tariffs: [
+        ['BUE Executive', '65465465asdgvadfg4'],
+        ['BUE Lite', '654654653treg4'],
+        ['BUE Lite 2', '65465465fas4'],
+        ['ROS Lite', '654654654fasd'],
+        ['Zero', '6546546gfad54asdfas'],
+      ],
+      products: [
+        ['Cabify Lite', '65465465asdgvadfg4'],
+        ['Cabify Premium', '654654653treg4'],
+        ['Cabify Como mola', '65465465fas4'],
+        ['Amazon', '654654654fasd'],
+        ['Airport', '6546546gfad54asdfas'],
+        ['Otro tipo', '654654654'],
+        ['Glovo', '6fda54654654'],
+      ],
+      bank_options: {
           "IN194": "Jivan Commercial Cooperative Bank Limited"
-      }
+      },
+
+      country_of_residence:[
+        ['Spain', '65465465asdgvadfg4'],
+        ['Belgium', '654654653treg4'],
+        ['Costa de Marfil', '65465465fas4'],
+        ['JnilloLandia', '654654654fasd'],
+        ['Los Alamos', '6546546gfad54asdfas'],
+        ['Alcala Meco', '654654654'],
+        ['Mas que Spain', '6fda54654654'],
+      ],
+      colour:[
+        ['Grey', '65465465asdgvadfg4'],
+        ['Nigger', '654654653treg4'],
+        ['Doradito', '65465465fas4'],
+        ['Rosita como a ti te gusta', '654654654fasd'],
+        ['Verde que te quiero verde', '6546546gfad54asdfas'],
+        ['Rojo sangre', '654654654'],
+        ['Amarillo Solecillo', '6fda54654654'],
+      ],
+      vehicle_model_id:[
+        ['Audi A4', '65465465asdgvadfg4'],
+        ['VW X6', '654654653treg4'],
+        ['Volvo XC70', '65465465fas4'],
+        ['Mercedes A', '654654654fasd'],
+        ['Seat Pasada', '6546546gfad54asdfas'],
+        ['Audi Coca Cola', '654654654'],
+      ],
+      region_id:[
+        ['Spain', '65465465asdgvadfg4'],
+        ['Belgium', '654654653treg4'],
+        ['Costa de Marfil', '65465465fas4'],
+        ['JnilloLandia', '654654654fasd'],
+        ['Los Alamos', '6546546gfad54asdfas'],
+        ['Alcala Meco', '654654654'],
+        ['Mas que Spain', '6fda54654654'],
+      ],
+      tariff_id:[
+
+      ],
+      company_bank_account_tax_document_name:[],
+      company_bank_account_bank_id:[],
+      driver_reserve_class:[],
+      vehicle_product_ids:[],
+      company_bank_account_format:['IBAN', 'Local'],
+      driver_fleet_role:['User', 'Manager'],
+      vehicle_year:['2007', '2008', '2009', '2010', 'Superior a 2010'],
+      company_bank_account_holder_type:['Company', 'Private'],
+      company_logistics_rep_id:[],
+      company_bank_account_type:['Cuenta Corriente', 'Cuenta de ahorros'],
+      company_bank_account_swift,
+      company_county,
+      driver_reserve_class
+
+
+
     }
   },
 

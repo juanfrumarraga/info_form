@@ -60,7 +60,7 @@ class InfoForm extends React.Component{
         title:'Vehicle Info',
         type: 'object',
         properties: {
-          vehicle_model_id: {type:'string', title:'Vehicle model ID', 'enum':this.props.option_banks.vehicle_types.map(type=>type[0])},
+          vehicle_model_id: {type:'string', title:'Vehicle model ID', 'enum':this.props.option_banks.vehicle_types.map(type=>type[1]), enumNames:this.props.option_banks.vehicle_types.map(type=>type[0])},
           plate : {type:'string', title: 'Plate'},
           vehicle_year: {type:'string', title:'Vehicle Year'},
           colour : {type:'string', title: 'Colour'},
