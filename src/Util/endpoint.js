@@ -1,4 +1,4 @@
-const Fountain = {
+const Admin = {
   searchv1(email) {
     console.log(email);
     const applicant = {
@@ -64,25 +64,35 @@ const Fountain = {
 
 
   search(email){
-    let url = `https://test.cabify.com/driver-onboarding/api/onboarding-info?email=${email}`
-    return fetch(url).then(response=>{return response.json()}).then(jsonResponse=>{return jsonResponse})
+    console.log(email);
+    let url = `https://test.cabify.com/driver-onboarding/api/applicant-info?email=${email}`
+    return fetch(url).then(response=>{return response.json()}).then(jsonResponse=>{console.log(jsonResponse);})
   },
 
 
+  getOptionBanks(){
+    return {
+      "vehicle_types": [{'type1':'342343243'}, {type2:'2324234'}],
+      "vehicle_models": {
+          "e2ad5daabc5131256f6f0eb3521dc2f3": "Make1 Model1"
+      },
+      "tariffs": {
+          "e2ad5daabc5131256f6f0eb3521dc804": "tariff1"
+      },
+      "products": {
+          "e2ad5daabc5131256f6f0eb3521df6fa": "Executive",
+          "e2ad5daabc5131256f6f0eb3521df086": "Lite Car"
+      },
+      "bank_options": {
+          "IN194": "Jivan Commercial Cooperative Bank Limited"
+      }
+    }
+  },
+
 
   update(applicant){
-    const url = 'https://api.fountain.com/v2/applicants/a6697ce4-7585-40ea-8873-04af36450b33';
-    return fetch(url, {
-      method:'PUT',
-      body: JSON.stringify(applicant),
-      headers: {'Content-Type': 'application/json'}
-    }).then(response=>{
-        return response.json();
-        console.log(response.json());
-    }).then(jsonResponse => {
-        return jsonResponse;
-    })
+    console.log(applicant);
   }
 }
 
-export default Fountain;
+export default Admin;

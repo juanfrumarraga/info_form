@@ -2,19 +2,30 @@ import React from "react";
 import Form from "react-jsonschema-form";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const CustomCheckbox = function(props) {
+  return (
+    <select data-live-seach='true'>
+    	{props.value}
+    </select>
+  );
+};
 
+const widgets = {
+  CheckboxWidget: CustomCheckbox
+};
 
 
 class InfoForm extends React.Component{
   constructor(props){
     super(props)
-    this.state={}
+    this.handleClick=this.handleClick.bind()
   }
 
 
   schema() {return {
     type: "object",
     properties: {
+
       driver_info:{
         title: 'Driver info',
         type: 'object',
@@ -49,7 +60,7 @@ class InfoForm extends React.Component{
         title:'Vehicle Info',
         type: 'object',
         properties: {
-          vehicle_model_id: {type:'string', title:'Vehicle model ID'},
+          vehicle_model_id: {type:'string', title:'Vehicle model ID', 'enum':this.props.option_banks.vehicle_types.map(type=>type[0])},
           plate : {type:'string', title: 'Plate'},
           vehicle_year: {type:'string', title:'Vehicle Year'},
           colour : {type:'string', title: 'Colour'},
@@ -119,6 +130,15 @@ class InfoForm extends React.Component{
           company_bank_agency_number: {type:'string', title: 'Bank agency number'},
 
         }
+      },
+
+      applicant_status: {
+        title: 'Applicant status',
+        type: 'object',
+        required:['save'],
+        properties: {
+          save: {type:'boolean', title: 'Save data for later?', "description": "Check Yes if Applicant needs to complete steps before activation"}
+        }
       }
     }
   };
@@ -127,141 +147,41 @@ class InfoForm extends React.Component{
 
 
 
+  handleClick(e){
+
+  }
 
 
-
-
-/*{
-  "title": "Widgets",
-  "type": "object",
-  "properties": {
-    "stringFormats": {
-      "type": "object",
-      "title": "String formats",
-      "properties": {
-        "email": {
-          "type": "string",
-          "format": "email"
-        },
-        "uri": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
-    "boolean": {
-      "type": "object",
-      "title": "Boolean field",
-      "properties": {
-        "default": {
-          "type": "boolean",
-          "title": "checkbox (default)",
-          "description": "This is the checkbox-description"
-        },
-        "radio": {
-          "type": "boolean",
-          "title": "radio buttons",
-          "description": "This is the radio-description"
-        },
-        "select": {
-          "type": "boolean",
-          "title": "select box",
-          "description": "This is the select-description"
-        }
-      }
-    },
-    "string": {
-      "type": "object",
-      "title": "String field",
-      "properties": {
-        "default": {
-          "type": "string",
-          "title": "text input (default)"
-        },
-        "textarea": {
-          "type": "string",
-          "title": "textarea"
-        },
-        "color": {
-          "type": "string",
-          "title": "color picker",
-          "default": "#151ce6"
-        }
-      }
-    },
-    "secret": {
-      "type": "string",
-      "default": "I'm a hidden string."
-    },
-    "disabled": {
-      "type": "string",
-      "title": "A disabled field",
-      "default": "I am disabled."
-    },
-    "readonly": {
-      "type": "string",
-      "title": "A readonly field",
-      "default": "I am read-only."
-    },
-    "widgetOptions": {
-      "title": "Custom widget with options",
-      "type": "string",
-      "default": "I am yellow"
-    },
-    "selectWidgetOptions": {
-      "title": "Custom select widget with options",
-      "type": "string",
-      "enum": [
-        "foo",
-        "bar"
-      ],
-      "enumNames": [
-        "Foo",
-        "Bar"
-      ]
+  uiSchema(){
+    return {
+      applicant_status: {save: {'ui:widget': 'radio'}}
     }
   }
-}*/
-
-
-
-
-
-
-
-
-
-
-
-  uiSchema(){return {}}
 
 
 
   log = (type) => console.log.bind(console, type);
 
 
-
   render(){
 
     return (
-    <div className='Test container'>
-    <Form schema={this.schema()}
-          onSubmit={this.log("submitted")}
-          onError={this.log("errors")}
-          uiSchema={this.uiSchema()}
-          formData={this.props.formData}/>
-          <div className='container row'>
-            <div className='col-md-3 offset-md-3'>
-              <button type="submit" className='btn btn-warning' onSubmit={this.log('submitted')}>Save</button>
-            </div>
-            <div className='col-md-3 offset-md-3'>
-              <button type="button" className='btn btn-danger'>Reject</button>
-            </div>
-          </div>
+    <div className='InfoForm container'>
+      <Form schema={this.schema()}
+            widgets={widgets}
+            onSubmit={this.props.onSubmit}
+            onError={this.log("errors")}
+            onSave={this.onSave}
+            uiSchema={this.uiSchema()}
+            formData={this.props.formData}>
+      <div>
+        <button type="submit" class="btn btn-success">Submit</button>
       </div>
-        )
+      </Form>
+    </div>
+    )
 
-}
+  }
 }
 
 export default InfoForm
