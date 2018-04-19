@@ -15,7 +15,7 @@ const widgets = {
 };
 
 
-class InfoForm extends React.Component{
+class MexicoForm extends React.Component{
   constructor(props){
     super(props)
   }
@@ -186,4 +186,4 @@ class InfoForm extends React.Component{
   }
 }
 
-export default InfoForm
+export default MexicoForm

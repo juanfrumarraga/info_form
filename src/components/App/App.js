@@ -5,10 +5,12 @@ import Header from '../Header/Header';
 import Admin from '../../Util/endpoint';
 import SearchApplicant from '../SearchApplicant/SearchApplicant';
 import InfoForm from '../InfoForm/InfoForm'
+import MexicoForm from '../InfoForm/MexicoForm'
+import ColombiaForm from '../InfoForm/ColombiaForm'
 
 
 let selectTest = ['hijo de la gran puta', 'chingada la madre de cojones', 'cristina cifuentes']
-
+const test='InfoForm'
 
 class App extends Component {
   constructor(props){
@@ -34,8 +36,8 @@ class App extends Component {
     this.getApplicant=this.getApplicant.bind(this);
     this.formData=this.formData.bind(this);
     this.handleFormSubmit=this.handleFormSubmit.bind(this);
-    this.handleApplicantStatus=this.handleApplicantStatus.bind(this);
-    this.getOptionBanks=this.getOptionBanks.bind(this)
+    this.getOptionBanks=this.getOptionBanks.bind(this);
+    this.displayForm=this.displayForm.bind(this);
   }
 
   formData(){
@@ -76,10 +78,23 @@ class App extends Component {
   }
 
 
-
-  handleApplicantStatus(status){
-    console.log(status);
+  displayForm(){
+    switch(this.state.applicant.vehicle_info.region_id) {
+    case 'Colombia':
+        return <ColombiaForm applicant={this.state.applicant} option_banks={this.state.option_banks} formData={this.formData()} selectTest={selectTest}
+        onSubmit={this.handleFormSubmit} handleApplicantStatus={this.handleApplicantStatus}/>
+        break;
+    case 'Mexico':
+        return <MexicoForm applicant={this.state.applicant} option_banks={this.state.option_banks} formData={this.formData()} selectTest={selectTest}
+        onSubmit={this.handleFormSubmit} handleApplicantStatus={this.handleApplicantStatus}/>
+        break;
+    default:
+        return <InfoForm applicant={this.state.applicant} option_banks={this.state.option_banks} formData={this.formData()} selectTest={selectTest}
+        onSubmit={this.handleFormSubmit} handleApplicantStatus={this.handleApplicantStatus}/>
+}
   }
+
+
 
 
   render() {
@@ -87,8 +102,7 @@ class App extends Component {
       <div className="App">
       <Header/>
         <SearchApplicant getApplicant={this.getApplicant}/>
-        <InfoForm applicant={this.state.applicant} option_banks={this.state.option_banks} formData={this.formData()} selectTest={selectTest}
-        onSubmit={this.handleFormSubmit} handleApplicantStatus={this.handleApplicantStatus}/>
+        {this.displayForm()}
       </div>
     );
   }
