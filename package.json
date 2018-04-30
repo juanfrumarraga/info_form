@@ -5,10 +5,20 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "formik": "^0.11.11",
+    "moment": "^2.22.1",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-bootstrap-intl-tel-input": "0.0.16",
+    "react-date-picker-cs": "^0.1.28",
+    "react-datepicker": "^1.4.1",
+    "react-day-picker": "^7.1.6",
     "react-dom": "^16.2.0",
+    "react-image-gallery": "^0.8.7",
+    "react-image-upload": "0.0.1",
     "react-jsonschema-form": "^1.0.3",
-    "react-scripts": "1.1.1"
+    "react-multimedia-gallery": "0.0.13",
+    "react-scripts": "1.1.1",
+    "react-select": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

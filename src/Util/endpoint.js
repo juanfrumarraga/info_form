@@ -32,7 +32,7 @@ const Admin = {
         mobile_num: "978576485",
         mobile_cc: "34",
         criminal_records_date: 'nil',
-        date_of_birth: 'nil',
+        date_of_birth: '03-05-2018',
         driver_fleet_role: 'nil',
         driver_gender: 'nil',
         driver_general_register_number: 'nil',
@@ -48,7 +48,7 @@ const Admin = {
         local_certification_date: 'nil',
         local_certification_number: 'nil',
         plate: 'nil',
-        region_id: 'Colombia',
+        region_id: '',
         tariff_id: 'nil',
         vehicle_model_id: 'nil',
         vehicle_product_ids: 'nil',
@@ -64,9 +64,14 @@ const Admin = {
 
 
   search(email){
-    console.log(email);
-    let url = `https://test.cabify.com/driver-onboarding/api/applicant-info?email=${email}`
-    return fetch(url).then(response=>{return response.json()}).then(jsonResponse=>{console.log(jsonResponse);})
+    let url = `https://cabify.com/driver-onboarding/api/applicant-info?email=${email}`
+    console.log(url);
+    let applicant = fetch(url).then(response=>{return response.json()}).then(jsonResponse=> {
+      console.log(jsonResponse);
+      return jsonResponse
+    })
+    debugger;
+    console.log(applicant);
   },
 
 
@@ -83,6 +88,15 @@ const Admin = {
           ['Otro tipo', '654654654'],
           ['Glovo', '6fda54654654'],
         ],
+
+        'company_logistics_rep_id': [
+            ['Juan Zumarraga', 'carlos@test.com'],
+            ['Sofia noseque', 'adfa@test.com'],
+            ['Pedr sanchez', 'asfa@test.com'],
+            ['Carlos sanches', 'ads@test.com'],
+            ['Alguien mas', 'juan@test.com'],
+            ['a pues mira tu', 'pedro@test.com'],
+          ],
 
 
       'vehicle_models': [
@@ -162,6 +176,17 @@ const Admin = {
         ]*/
 
     }
+  },
+
+
+  getOptionBanksv2(){
+    let url = `https://cabify.com/driver-onboarding/api/applicant-bootstrap?country=ES&agency=PRT`
+    return fetch(url).then(response=>{
+      console.log(response);
+      return response.json()
+    }).then(jsonResponse=>{
+      console.log(jsonResponse)
+    })
   },
 
 

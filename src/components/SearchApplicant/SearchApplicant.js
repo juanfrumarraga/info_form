@@ -1,6 +1,6 @@
 import React from 'react';
-import '../Driver/Driver';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form,Row, Col, ButtonToolbar, Image, Checkbox,HelpBlock,Button, Grid,Alert, FormControl, FormGroup, ControlLabel} from 'react-bootstrap'
 import Logo from '../../logo.jpg';
 
 class SearchApplicant extends React.Component{
@@ -27,19 +27,14 @@ class SearchApplicant extends React.Component{
     return (
 
 
-      <div className='container'>
-        {/*<div className='row'>
-          <div className='col-sm-3 offset-sm-4'>
-          <img src={Logo} className="img-fluid" alt="Responsive image"/>
-          </div>
-        </div>*/}
-        <div className="row">
-          <div className="col-sm-6 my-1 offset-sm-3">
+      <div>
+        <Row>
+          <Col xs={12} md={12}>
             <h3>Search</h3>
-          </div>
-        </div>
-        <div className="row align-items-center">
-          <div className="col-sm-6 my-1 offset-sm-3">
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={12}>
             <label className="sr-only" htmlFor="inlineFormInputGroupUsername">Email</label>
             <div className="input-group">
               <div className="input-group-prepend">
@@ -50,8 +45,8 @@ class SearchApplicant extends React.Component{
                 <button type="button" className="btn btn-main" onClick={this.handleSubmit}>Submit</button>
               </div>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <br/>
       </div>
     )

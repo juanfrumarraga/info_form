@@ -97,7 +97,6 @@ class InfoForm extends React.Component{
 
           //Susceptible Option Bank
           company_county : {type:'string', title: 'County'},
-
           company_logistics_rep_id : {type:'string', title: 'Logistics Rep ID'},
 
           /*INVERSIONISTAS ONLY*/
