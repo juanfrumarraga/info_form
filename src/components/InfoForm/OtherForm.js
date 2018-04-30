@@ -55,15 +55,6 @@ class OtherForm extends React.Component {
     }
 
 
-  handleMultiChangev2(option) {
-      this.setState(state => {
-        return {
-          multiValue: option
-        };
-      });
-    }
-
-
 
   showPicture(e, id){
     console.log(e);
@@ -74,16 +65,19 @@ class OtherForm extends React.Component {
         reader.onload = (e) => {
           this.setState({
               [id]: [...this.state[id], e.target.result]
+          }, function(){
+            console.log(this.state[id])
           })}
         reader.readAsDataURL(file)
       })
-
+    console.log(this.state[id]);
     } else {
       this.setState({
           [id]: []
+      }, function(){
+        console.log(this.state[id])
       })
     }
-    console.log(this.state[id]);
   }
 
 
@@ -286,7 +280,7 @@ class OtherForm extends React.Component {
                   multiple
                   defaultValue={this.props.driver_info.driving_license_upload}
                   onChange={(e) => {
-                    this.handleChange(e);
+                    this.handleChange(e)
                     this.showPicture(e, 'driving_license_upload')
                   }}
                 />
@@ -366,7 +360,7 @@ class OtherForm extends React.Component {
                   defaultValue={this.props.driver_info.criminal_records_attachment}
                   multiple
                   onChange={(e) => {
-                    this.handleChange(e);
+                    this.handleChange(e)
                     this.showPicture(e, 'criminal_records_attachment')
                   }}
                 />
@@ -539,7 +533,7 @@ class OtherForm extends React.Component {
               defaultValue={this.props.vehicle_info.vehicle_insurance_policy_upload}
               multiple
               onChange={(e) => {
-                this.handleChange(e);
+                this.handleChange(e)
                 this.showPicture(e, 'vehicle_insurance_policy_upload')
               }}
             />
