@@ -10,6 +10,7 @@ import IntlTelInput from 'react-bootstrap-intl-tel-input';
 import './OtherForm.css'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ReactFileReader from 'react-file-reader';
 
 
 const FieldGroup = function ({ id, label, help, ...props }) {
@@ -26,13 +27,11 @@ class OtherForm extends React.Component {
   constructor(props, context){
     super(props)
     this.state = {
-      driving_license_upload:[],
-      vehicle_insurance_policy_upload:[],
-      criminal_records_attachment:[]
+      value : ''
     }
 
-    this.original_cc = this.props.driver_info.mobile_cc
-    this.original_mobile_num = this.props.driver_info.mobile_num
+    this.original_cc = '+34'
+    this.original_mobile_num = 456783746
 
     this.handleChange=this.handleChange.bind(this)
     this.handleSend = this.handleSend.bind(this)
@@ -45,8 +44,13 @@ class OtherForm extends React.Component {
     this.handleTest=this.handleTest.bind(this)
     this.handleMultiChange = this.handleMultiChange.bind(this)
     this.handlePhoneChange= this.handlePhoneChange.bind(this)
-    this.showPicture = this.showPicture.bind(this)
+    //this.showPicture = this.showPicture.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
   }
+
+  handleFileChange(file, id){
+        this.props.onFileChange(file.base64, id)
+    }
 
 
   handleMultiChange(option, id) {
@@ -54,8 +58,13 @@ class OtherForm extends React.Component {
       this.props.onMultiSelect(option, id)
     }
 
+  handleSubmit(e){
+    e.preventDefault()
+  }
 
+// FUNCION PARA MOSTRAR ARCHIVOS ADJUNTOS VERSION ANTIGUA
 
+/*
   showPicture(e, id){
     console.log(e);
     this.setState({[id]:[]})
@@ -78,7 +87,8 @@ class OtherForm extends React.Component {
         console.log(this.state[id])
       })
     }
-  }
+  } */
+
 
 
 
@@ -151,7 +161,9 @@ class OtherForm extends React.Component {
 
 
   handleSelect = (e) => {
-    this.props.onSelect(e)
+    if (e != null) {
+      this.props.onSelect(e)
+    }
   }
 
 
@@ -184,11 +196,34 @@ class OtherForm extends React.Component {
           <Button onClick={this.handleDismiss}>Send link</Button>
         </Alert>
 
-        <form>
+
+        <form id="form" onsubmit="return false">
+        <label>Input<input type="email" id="input" /></label>
+        <input type="submit" class="hide" id="inputButton"/>
+    </form>
+
         <h3>Driver info</h3>
+        <form onSubmit={this.handleSubmit}>
+          <input type='email' required/>
+          <input type='text' required/>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
+        <form onSubmit={this.handleSubmit}>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+            <small id="emailHelp" class="form-text text-muted">Well never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" onChange={(e)=>console.log(e.target.value)} required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name"/>
+            <small id="emailHelp" class="form-text text-muted">Well never share your email with anyone else.</small>
+          </div>
+          <button type="submit" class="btn btn-primary" onSubmit={(e)=>{e.preventDefault(); console.log('hola');}}>Submit</button>
+        </form>
 
-            <FormGroup controlId="name" validationState={this.getValidationState()}>
+            <FormGroup controlId="name" validationState='error'>
               <ControlLabel>Name</ControlLabel>
               <FormControl type="text"
                 placeholder='Enter text'
@@ -198,7 +233,6 @@ class OtherForm extends React.Component {
                 defaultValue={this.props.driver_info.first_name}>
                 </FormControl>
             </FormGroup>
-
 
 
             <FormGroup controlId="surname">
@@ -271,31 +305,6 @@ class OtherForm extends React.Component {
             </FormGroup>
 
 
-            <FormGroup controlId="driving_license_upload">
-                <ControlLabel>Driving license upload</ControlLabel>
-                <FieldGroup
-                  name='driver_info'
-                  id="driving_license_upload"
-                  type="file"
-                  multiple
-                  defaultValue={this.props.driver_info.driving_license_upload}
-                  onChange={(e) => {
-                    this.handleChange(e)
-                    this.showPicture(e, 'driving_license_upload')
-                  }}
-                />
-            </FormGroup>
-
-            <FormGroup>
-              <Row>
-              {this.state.driving_license_upload.map(file=>{
-                return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
-                }
-              )}
-              </Row>
-            </FormGroup>
-
-
             <FormGroup controlId="driver_gender">
               <ControlLabel>Gender</ControlLabel>
               <Select
@@ -349,33 +358,6 @@ class OtherForm extends React.Component {
               <ControlLabel>Criminal records date</ControlLabel>
               <DatePicker selected={this.state.criminal_records_date} showYearDropdown onChange={this.criminalRecordsDate}/>
             </FormGroup>
-
-
-            <FormGroup controlId="criminal_records_attachment">
-                <ControlLabel>Criminal records attachment</ControlLabel>
-                <FieldGroup
-                  name='driver_info'
-                  id='criminal_records_attachment'
-                  type="file"
-                  defaultValue={this.props.driver_info.criminal_records_attachment}
-                  multiple
-                  onChange={(e) => {
-                    this.handleChange(e)
-                    this.showPicture(e, 'criminal_records_attachment')
-                  }}
-                />
-            </FormGroup>
-
-
-            <FormGroup>
-              <Row>
-              {this.state.criminal_records_attachment.map(file=>{
-                return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
-                }
-              )}
-              </Row>
-            </FormGroup>
-
 
 
         {/*   SELECT
@@ -500,7 +482,7 @@ class OtherForm extends React.Component {
             id="vehicle_info.products"
             value={this.props.vehicle_info.vehicle_product_ids}
             onChange={(e) => {
-              this.handleMultiChange(e, 'products')
+              this.handleMultiChange(e, 'vehicle_product_ids')
             }}
             multi
             closeOnSelect={false}
@@ -537,16 +519,6 @@ class OtherForm extends React.Component {
                 this.showPicture(e, 'vehicle_insurance_policy_upload')
               }}
             />
-        </FormGroup>
-
-
-        <FormGroup>
-          <Row>
-          {this.state.vehicle_insurance_policy_upload.map(file=>{
-            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
-            }
-          )}
-          </Row>
         </FormGroup>
 
 
@@ -781,6 +753,145 @@ class OtherForm extends React.Component {
         </FormGroup>
 
 
+        <h3>Documents upload</h3>
+
+        //  ANTIGUA VERSION DE SUBIDA DE ARCHIVOS
+
+  {     /*  <FormGroup controlId="driving_license_upload">
+            <ControlLabel>Driving license upload</ControlLabel>
+            <FieldGroup
+              name='driver_info'
+              id="driving_license_upload"
+              type="file"
+              multiple
+              defaultValue={this.props.driver_info.driving_license_upload}
+              onChange={(e) => {
+                this.handleChange(e)
+                this.showPicture(e, 'driving_license_upload')
+              }}
+            />
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.state.driving_license_upload.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+
+
+        <FormGroup controlId="criminal_records_attachment">
+            <ControlLabel>Criminal records attachment</ControlLabel>
+            <FieldGroup
+              name='driver_info'
+              id='criminal_records_attachment'
+              type="file"
+              defaultValue={this.props.driver_info.criminal_records_attachment}
+              multiple
+              onChange={(e) => {
+                this.handleChange(e)
+                this.showPicture(e, 'criminal_records_attachment')
+              }}
+            />
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.state.criminal_records_attachment.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+
+
+
+        <FormGroup controlId="vehicle_insurance_policy_upload">
+            <ControlLabel>Insurance policy upload</ControlLabel>
+            <FieldGroup
+              name='vehicle_info'
+              id="vehicle_insurance_policy_upload"
+              type="file"
+              defaultValue={this.props.vehicle_info.vehicle_insurance_policy_upload}
+              multiple
+              onChange={(e) => {
+                this.handleChange(e)
+                this.showPicture(e, 'vehicle_insurance_policy_upload')
+              }}
+            />
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.state.vehicle_insurance_policy_upload.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+*/}
+
+
+        <FormGroup controlId="driving_license_upload">
+            <ControlLabel>Driving license</ControlLabel>
+              <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                this.handleFileChange(e, 'driving_license_upload')
+              }}>
+                <button className='btn-secondary'>Choose files</button>
+              </ReactFileReader>
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.props.attachments.driving_license_upload.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+
+
+        <FormGroup controlId="criminal_records_attachment">
+            <ControlLabel>Criminal record</ControlLabel>
+              <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                this.handleFileChange(e, 'criminal_records_attachment')
+              }}>
+                <button className='btn-secondary'>Choose files</button>
+              </ReactFileReader>
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.props.attachments.criminal_records_attachment.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+
+
+        <FormGroup controlId="vehicle_insurance_policy_upload">
+            <ControlLabel>Vehicle insurance policy</ControlLabel>
+              <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                this.handleFileChange(e, 'vehicle_insurance_policy_upload')
+              }}>
+                <button className='btn-secondary'>Choose files</button>
+              </ReactFileReader>
+        </FormGroup>
+
+        <FormGroup>
+          <Row>
+          {this.props.attachments.vehicle_insurance_policy_upload.map(file=>{
+            return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
+            }
+          )}
+          </Row>
+        </FormGroup>
+
+
+
         <h3>Medical and GPI test</h3>
 
         <FormGroup>
@@ -816,7 +927,7 @@ class OtherForm extends React.Component {
         <Button type="button" id='approve' block className="btn-primary" onClick={this.handleSend}>Approve</Button>
         <Button type="button" id='save' block className="btn-secondary" onClick={this.handleSend}>Save</Button>
 
-      </form>
+
 
 </div>
 

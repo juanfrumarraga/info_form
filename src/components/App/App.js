@@ -6,6 +6,7 @@ import SearchApplicant from '../SearchApplicant/SearchApplicant';
 import {Form,Row, Col, ButtonToolbar, Image, Checkbox,HelpBlock,Button, Grid,Alert, FormControl, FormGroup, ControlLabel} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import OtherForm from '../InfoForm/OtherForm'
+import OtherForm2 from '../InfoForm/OtherForm2'
 
 
 
@@ -84,6 +85,12 @@ class App extends Component {
         products: [],
         bank_options: [],
         company_logistics_rep_id: []
+      },
+
+      attachments : {
+        driving_license_upload:[],
+        vehicle_insurance_policy_upload:[],
+        criminal_records_attachment:[]
       }
   }
 
@@ -97,6 +104,8 @@ class App extends Component {
     this.handleTest=this.handleTest.bind(this)
     this.handleMultiSelect= this.handleMultiSelect.bind(this)
     this.handlePhoneChange=this.handlePhoneChange.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
+    this.updateApplicant = this.updateApplicant.bind(this)
   }
 
 
@@ -109,6 +118,13 @@ class App extends Component {
         let applicant = {...this.state.applicant}
         applicant['applicant_status'] = 'not exists'
         this.setState({applicant:applicant})
+      }
+      else if (jsonResponse.applicant_status == 'rejected') {
+        this.setState({
+          applicant:{
+          ...this.state.applicant,
+          applicant_status: 'rejected'}
+        })
       }
       else {
         this.setState({applicant:jsonResponse}, function(){this.getOptionBanks()})
@@ -140,20 +156,41 @@ class App extends Component {
       applicant['applicant_status']='save'
     } else if (this.state.test_info.gpi==='Failed' || this.state.test_info.medical_test=='Failed') {
       applicant['applicant_status']='rejected'
-    } else {
-      applicant['applicant_status']='approve'
+    } else if (this.state.test_info.gpi==='not_available' || this.state.test_info.medical_test=='not_available'){
+      applicant['applicant_status']='save'
+    } else {applicant['applicant_status']='approve'}
+
+    this.setState({applicant:applicant}, function(){this.updateApplicant()})
     }
-    this.setState({applicant:applicant}, function(){console.log(this.state.applicant)})
+
+  updateApplicant(){
+    console.log('hello');
+    return fetch('https://www.applesfera.com/', {
+      headers : {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'},
+      method : 'POST',
+      body : JSON.stringify(this.state.applicant)
+    }).then(response=>{
+      if(response.ok){
+        return response.json()
+      } throw new Error ('Request failed')
+    },
+    networkError=> console.log(networkError.message)
+    ).then(jsonResponse=>console.log(jsonResponse))
   }
+
 
 
   displayForm(){
     switch (this.state.applicant.applicant_status) {
       case 'searched':
-        return <OtherForm test_info={this.state.test_info} vehicle_info={this.state.applicant.vehicle_info} company_info={this.state.applicant.company_info}
-        bank_account_info={this.state.applicant.bank_account_info} driver_info={this.state.applicant.driver_info} option_banks={this.state.option_banks} onSend={this.handleFormSubmit} onChange={this.handleChange}
+        return <OtherForm2 test_info={this.state.test_info} vehicle_info={this.state.applicant.vehicle_info} company_info={this.state.applicant.company_info}
+        bank_account_info={this.state.applicant.bank_account_info} driver_info={this.state.applicant.driver_info} option_banks={this.state.option_banks}
+        attachments={this.state.attachments} onSend={this.handleFormSubmit} onChange={this.handleChange}
         onChange={this.handleChange} onMultiSelect={this.handleMultiSelect} onPhoneChange={this.handlePhoneChange}
-        onDateChange={this.handleDateChange} onSelect={this.handleSelect} handleTestResponse={this.handleTest}/>
+        onDateChange={this.handleDateChange} onSelect={this.handleSelect} handleTestResponse={this.handleTest}
+        onFileChange={this.handleFileChange}/>
         break;
 
       case 'not exists':
@@ -173,7 +210,9 @@ class App extends Component {
         return (<Alert bsStyle="success">
                   <h4>Driver info has been saved!</h4>
                   <p>
-                    Come back later and finish filling the form before approval. In the meantinme you can complete other drivers activation.
+                    Come back later and finish filling the form before approval.
+                    If you wanted to approve this applicant, GPI or Medical test info might be missing and therefore we have only saved his info.
+                    In the meantinme you can complete other drivers activation.
                   </p>
                 </Alert>)
         break;
@@ -349,6 +388,18 @@ class App extends Component {
         this.setState({applicant:applicant})
         break;
     }
+  }
+
+
+  handleFileChange(src, id){
+    this.setState({
+      ...this.state,
+      attachments : {
+        ...this.state.attachments,
+        [id] : src
+      }
+    }
+  )
   }
 
 
