@@ -675,7 +675,7 @@ class OtherForm2 extends React.Component {
 
           <FormGroup controlId="driving_license_upload">
               <ControlLabel>Driving license</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'driving_license_upload')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -684,17 +684,19 @@ class OtherForm2 extends React.Component {
 
           <FormGroup>
             <Row>
+            {/*}
             {this.props.attachments.driving_license_upload.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}
+            )}*/}
+            <Col lg={3}><Image src={this.props.attachments.driving_license_upload} style={{width:300}} thumbnail/></Col>
             </Row>
           </FormGroup>
 
 
           <FormGroup controlId="criminal_records_attachment">
               <ControlLabel>Criminal record</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'criminal_records_attachment')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -703,17 +705,18 @@ class OtherForm2 extends React.Component {
 
           <FormGroup>
             <Row>
-            {this.props.attachments.criminal_records_attachment.map(file=>{
+            {/*{this.props.attachments.criminal_records_attachment.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}
+            )}*/}
+            <Col lg={3}><Image src={this.props.attachments.criminal_records_attachment} style={{width:300}} thumbnail/></Col>
             </Row>
           </FormGroup>
 
 
           <FormGroup controlId="vehicle_insurance_policy_upload">
               <ControlLabel>Vehicle insurance policy</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={true} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'vehicle_insurance_policy_upload')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -722,10 +725,11 @@ class OtherForm2 extends React.Component {
 
           <FormGroup>
             <Row>
-            {this.props.attachments.vehicle_insurance_policy_upload.map(file=>{
+            {/*{this.props.attachments.vehicle_insurance_policy_upload.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}
+            )}*/}
+            <Col lg={3}><Image src={this.props.attachments.vehicle_insurance_policy_upload} style={{width:300}} thumbnail/></Col>
             </Row>
           </FormGroup>
 
