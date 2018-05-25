@@ -27,7 +27,7 @@ class OtherForm2 extends React.Component {
   constructor(props, context){
     super(props)
     this.state = {
-      value : ''
+      files: ['index.html']
     }
 
     this.original_cc = '+34'
@@ -47,11 +47,25 @@ class OtherForm2 extends React.Component {
     //this.showPicture = this.showPicture.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
+  handletype(e) {
+    console.log(e);
+  }
+
+
+
   handleFileChange(file, id){
-        this.props.onFileChange(file.base64, id)
-    }
+    console.log(file, id);
+    this.props.onFileChange(file, id)
+    /* var myBlob = new Blob(["This is my blob content"], {type : "text/plain"});
+    var myReader = new FileReader();
+    console.log(file.target.files);
+    myReader.file.target.files[0]
+    myReader.readAsText(myBlob);
+    console.log(myReader); */
+  }
 
 
   handleMultiChange(option, id) {
@@ -60,12 +74,13 @@ class OtherForm2 extends React.Component {
     }
 
   handleSubmit(e){
+    this.handleSend(e)
     e.preventDefault()
   }
 
 // FUNCION PARA MOSTRAR ARCHIVOS ADJUNTOS VERSION ANTIGUA
 
-/*
+
   showPicture(e, id){
     console.log(e);
     this.setState({[id]:[]})
@@ -88,7 +103,7 @@ class OtherForm2 extends React.Component {
         console.log(this.state[id])
       })
     }
-  } */
+  }
 
 
 
@@ -125,6 +140,7 @@ class OtherForm2 extends React.Component {
 
 
   }
+
 
 
   handleChange(e){
@@ -171,6 +187,7 @@ class OtherForm2 extends React.Component {
 
 
   handleSend(e){
+    console.log('submit');
     this.props.onSend(e.target.id)
   }
 
@@ -498,7 +515,7 @@ class OtherForm2 extends React.Component {
             defaultValue={this.props.company_info.company_city}/>
           </div>
 
-          /*Hay que incluir el listado en los option banks*/
+          //Hay que incluir el listado en los option banks
           <FormGroup controlId="company_logistics_rep_id">
               <ControlLabel>Company Logistics Rep ID</ControlLabel>
               <Select
@@ -673,9 +690,33 @@ class OtherForm2 extends React.Component {
   */}
 
 
-          <FormGroup controlId="driving_license_upload">
+
+
+          <div className="form-group">
+            <label>Driving license</label>
+            <input type="file" onChange={this.handleChange} required class="form-control" onChange={(e) => {
+              this.handleFileChange(e.target.files, 'driving_license_upload')
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label>Vehicle Insurance Policy</label>
+            <input type="file" onChange={this.handleChange} required class="form-control" onChange={(e) => {
+              this.handleFileChange(e.target.files, 'vehicle_insurance_policy_upload')
+            }}/>
+          </div>
+
+          <div className="form-group">
+            <label>Criminal Record</label>
+            <input type="file" onChange={this.handleChange} required class="form-control" onChange={(e) => {
+              this.handleFileChange(e.target.files, 'criminal_records_attachment')
+            }}/>
+          </div>
+
+
+          {/*<FormGroup controlId="driving_license_upload">
               <ControlLabel>Driving license</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={false} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'driving_license_upload')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -688,7 +729,7 @@ class OtherForm2 extends React.Component {
             {this.props.attachments.driving_license_upload.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}*/}
+            )}
             <Col lg={3}><Image src={this.props.attachments.driving_license_upload} style={{width:300}} thumbnail/></Col>
             </Row>
           </FormGroup>
@@ -696,7 +737,7 @@ class OtherForm2 extends React.Component {
 
           <FormGroup controlId="criminal_records_attachment">
               <ControlLabel>Criminal record</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={false} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'criminal_records_attachment')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -708,7 +749,7 @@ class OtherForm2 extends React.Component {
             {/*{this.props.attachments.criminal_records_attachment.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}*/}
+            )}
             <Col lg={3}><Image src={this.props.attachments.criminal_records_attachment} style={{width:300}} thumbnail/></Col>
             </Row>
           </FormGroup>
@@ -716,7 +757,7 @@ class OtherForm2 extends React.Component {
 
           <FormGroup controlId="vehicle_insurance_policy_upload">
               <ControlLabel>Vehicle insurance policy</ControlLabel>
-                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={true} multipleFiles={false} handleFiles={(e) => {
+                <ReactFileReader fileTypes={[".csv",".zip", ".png"]} base64={false} multipleFiles={false} handleFiles={(e) => {
                   this.handleFileChange(e, 'vehicle_insurance_policy_upload')
                 }}>
                   <button className='btn-secondary'>Choose files</button>
@@ -728,10 +769,10 @@ class OtherForm2 extends React.Component {
             {/*{this.props.attachments.vehicle_insurance_policy_upload.map(file=>{
               return (<Col lg={3}><Image src={file} style={{width:300}} thumbnail/></Col>)
               }
-            )}*/}
+            )}
             <Col lg={3}><Image src={this.props.attachments.vehicle_insurance_policy_upload} style={{width:300}} thumbnail/></Col>
             </Row>
-          </FormGroup>
+          </FormGroup>*/}
 
 
 
@@ -753,7 +794,6 @@ class OtherForm2 extends React.Component {
               />
           </FormGroup>
 
-
           <FormGroup>
               <ControlLabel>Medical Test</ControlLabel>
               <Select
@@ -770,32 +810,9 @@ class OtherForm2 extends React.Component {
               />
           </FormGroup>
 
-
-
-          <button type="submit" class="btn btn-primary" onSubmit={(e)=>{e.preventDefault(); console.log('hola');}}>Submit</button>
-        </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <Button type="button" id='approve' block className="btn-primary" onClick={this.handleSend}>Approve</Button>
+        <Button type="submit" id='approve' block className="btn-primary">Approve</Button>
         <Button type="button" id='save' block className="btn-secondary" onClick={this.handleSend}>Save</Button>
-
-
-
+    </form>
 </div>
 
     )

@@ -5,7 +5,6 @@ import Header from '../Header/Header';
 import SearchApplicant from '../SearchApplicant/SearchApplicant';
 import {Form,Row, Col, ButtonToolbar, Image, Checkbox,HelpBlock,Button, Grid,Alert, FormControl, FormGroup, ControlLabel} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import OtherForm from '../InfoForm/OtherForm'
 import OtherForm2 from '../InfoForm/OtherForm2'
 
 
@@ -106,6 +105,7 @@ class App extends Component {
     this.handlePhoneChange=this.handlePhoneChange.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
     this.updateApplicant = this.updateApplicant.bind(this)
+    this.uploadAttachments = this.uploadAttachments.bind(this)
   }
 
 
@@ -160,21 +160,21 @@ class App extends Component {
       applicant['applicant_status']='save'
     } else {applicant['applicant_status']='approve'}
 
-    this.setState({applicant:applicant}, function(){this.updateApplicant()})
+    this.setState({applicant:applicant}, function(){
+      this.updateApplicant()
+      this.uploadAttachments()
+    })
     }
 
   _add_attachment(name, file){
     return {name: name, file: file}
   }
 
-  updateApplicant(){
-
+  uploadAttachments(){
+/*
     let driving_license_upload = new FormData()
     driving_license_upload.append = this.state.attachments.driving_license_upload
-    let vehicle_insurance_policy_upload = new FormData()
-    vehicle_insurance_policy_upload.append = this.state.attachments.vehicle_insurance_policy_upload
-    let criminal_records_attachment = new FormData()
-    criminal_records_attachment.append = this.state.attachments.criminal_records_attachment
+
 
     let attachments = [];
 
@@ -185,37 +185,49 @@ class App extends Component {
       })
     }
 
-    if (vehicle_insurance_policy_upload.append != '') {
-      attachments.push({
-        'title':'vehicle_insurance_policy_upload',
-        'file' : vehicle_insurance_policy_upload.append
-      })
-    }
-
-    if (criminal_records_attachment.append != '') {
-      attachments.push({
-        'title':'criminal_records_attachment',
-        'file' : criminal_records_attachment.append
-      })
-    }
-
     console.log(attachments);
 
     const data = {
       applicant_id : 'jhfjshafjh34h3k4jh3423',
       attachments : attachments
-    }
+    }*/
 
-    console.log('hello');
-    return fetch('http://infoform.proxy.beeceptor.com', {
+    const formData = new FormData();
+    formData.append('applicant_id', 'jhfjshafjh34h3k4jh3423')
+    formData.append('driver_license', this.state.attachments.driving_license_upload)
+    formData.append('vehicle_insurance_policy_upload', this.state.attachments.vehicle_insurance_policy_upload)
+    formData.append('criminal_records_attachment', this.state.attachments.criminal_records_attachment)
+
+    return fetch('http://infoss.proxy.beeceptor.com', {
       headers : {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'},
-      method : 'POST',
-      body : JSON.stringify(this.state.applicant)
+        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        'Content-Type': 'multipart/form-data'
+      },
+        method : 'PUT',
+        body : formData
     }).then(response=>{
       if(response.ok){
-        return response.json()
+        console.log(response)
+        return response;
+      } throw new Error ('Request failed')
+    },
+    networkError=> console.log(networkError.message)
+  ).then(jsonResponse=>console.log(jsonResponse))
+  }
+
+
+  updateApplicant(){
+    return fetch('http://infoss.proxy.beeceptor.com', {
+      headers : {
+        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        'Content-Type': 'application/json'
+      },
+        method : 'PUT',
+        body : JSON.stringify(this.state.applicant)
+    }).then(response=>{
+      if(response.ok){
+        console.log(response)
+        return response;
       } throw new Error ('Request failed')
     },
     networkError=> console.log(networkError.message)
@@ -434,7 +446,27 @@ class App extends Component {
 
 
   handleFileChange(src, id){
-    console.log(src);
+    console.log(src[0]);
+    this.setState({
+      attachments: {
+        ...this.state.attachments,
+        [id]: src[0],
+      }
+    })
+
+    /* var reader = new FileReader();
+    console.log(src)
+     reader.onload(() = {
+      const image  = reader.result;
+      this.setState({
+        attachments: {
+          ...this.state.attachments,
+          [id]: image;
+        }
+      })
+    }); */
+
+  /*  console.log(src);
     this.setState({
       ...this.state,
       attachments : {
@@ -442,7 +474,7 @@ class App extends Component {
         [id] : src
       }
     }
-  )
+  )*/
   }
 
 
